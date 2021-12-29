@@ -3,6 +3,7 @@ import ToDoList from './ToDoList';
 import { v4 as uuidv4 } from 'uuid';
 import './bootstrap.css';
 import Users from './User';
+import Users2 from './Usercopy';
 
  // This is a key for local storage
  const LOCAL_STORAGE_KEY = 'todoapp.todos'
@@ -10,24 +11,23 @@ import Users from './User';
 function App() {
   // Use state created to dynamically create two const objects and give a default value and provides a function to update it
   const [todos, setTodos] = useState([]);
+  // const [users, setUsers] = useState([]);
   const todoNameRef = useRef();
   const todoDesRef = useRef();
 
-  useEffect(() => {
-    //Check localstorage for json data with key 'todoapp.todos'
-    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-      //If store json array is not blank - we have todos stored so show
-      if (storedTodos){ 
-        setTodos(storedTodos)}
-    }, 
-    //Else the stored array is empty, so set todos array to empty
-    []);
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/')
+  //   .then(res => res.json())
+  //   .then(Users_list => setUsers({Users_list: Users_list, da_id: null}, () => 
+  //   console.log(Users_list)));
+  // }, []);
 
-  //This use effect called everytime the todos array is changed and todos are stored in local storage
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
-  }, //dependency list - anytime any object in this list changes, call this function
-   [todos]);
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/')
+  //   .then(res => res.json())
+  //   .then(Users_list => setUsers({Users_list: Users_list, da_id: null}, () => 
+  //   console.log(Users_list)));
+  // }, [users]);
 
 
   function toggleTodo(id) {
@@ -36,7 +36,7 @@ function App() {
     todo.complete = !todo.complete
     setTodos(newTodos)
   };
-        
+
     // Listen for button submit attempt
   const handleAddTodo = (e) => {
     const name = todoNameRef.current.value
@@ -51,9 +51,9 @@ function App() {
         todoDesRef.current.value = null
     };
 
-    function RemoveTodo() {
-      setTodos([]);
-    }  
+    // function RemoveTodo() {
+    //   setTodos([]);
+    // }  
 
   return ( 
     //fragement used instead of div to separate text
@@ -89,6 +89,7 @@ function App() {
               <div class="col">
                 <div class="p-2"> 
                   <button class="btn btn-primary btn-sm btn-block" onClick={handleAddTodo}>Create user</button>
+                  <button class="btn btn-primary btn-sm btn-block" onClick={Users.say_hello}>Dirty</button>
                 </div>
               </div>
             </div>
