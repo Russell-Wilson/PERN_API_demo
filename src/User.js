@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useRef} from 'react';
 import './bootstrap.css';
 
 
@@ -9,21 +9,9 @@ class Users extends Component {
             Users_list:[],
             da_id: null
         };
-    }   
-    set_id(id) {
-        this.setState({Users_list:this.state.Users_list.filter(user => user.user_id !== id), da_id:id}, () => {
-        var id = this.state.da_id;
-        fetch('http://localhost:5000/remove', {
-            method: 'POST',
-            headers: {
-                'Content-type':'application/json'
-            },
-            body: JSON.stringify({user_id:id})
-            })
-        });
     } 
 
-    add_user(id) {
+    set_id(id) {
         this.setState({Users_list:this.state.Users_list.filter(user => user.user_id !== id), da_id:id}, () => {
         var id = this.state.da_id;
         fetch('http://localhost:5000/remove', {
@@ -39,8 +27,7 @@ class Users extends Component {
     componentDidMount() {
         fetch('http://localhost:5000/')
         .then(res => res.json())
-        .then(Users_list => this.setState({Users_list}, () => 
-        console.log(Users_list)));
+        .then(Users_list => this.setState({Users_list}))
     }
   
 render () {
@@ -49,7 +36,7 @@ render () {
         <div>
         </div>
         {this.state.Users_list.map((user => ( 
-        <div>
+        <div key={user.user_id}>
         <div class="container"> 
             <div class="row m-8">
                 <div class="col"/>
